@@ -22,8 +22,8 @@ export default class DetailScreen extends React.Component {
 	const item = this.props.navigation.state.params.item;
     return (
 	  <View style={styles.container}>
-		  <Text>{item.title}</Text>
-		  <Text>{item.description}</Text>
+		  <Text style={styles.title}>{item.title}</Text>
+		  <Text style={styles.body}>{item.description}</Text>
 	  </View>
     );
   }
@@ -36,5 +36,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  }
+  ,
+  title: {
+	  color:'#000000',
+	  position: 'absolute',
+      top: 0,
+	  alignItems:'center',
+	  fontSize:20
+  },
+  description: {
+	  color:'#00ff00',
+	  margin:5
   }
 });
