@@ -6,7 +6,7 @@ export default class App extends React.Component {
   
   constructor(props) {
 	  super(props);
-	  this.renderNews = this.renderNews.bind(this);
+	  this.renderItem = this.renderItem.bind(this);
   }
   componentWillMount() {
         this.setState({
@@ -53,7 +53,7 @@ export default class App extends React.Component {
 		  <ScrollView ref="scrollView">
 		  {
 			  this.state.loaded && 
-			  <ListView initialListSize={1} dataSource={this.state.dataSource} style={styles.news} renderRow={this.renderNews}></ListView>
+			  <ListView initialListSize={1} dataSource={this.state.dataSource} style={styles.news} renderRow={this.renderItem}></ListView>
 		  }
 			
 		  </ScrollView>
@@ -62,17 +62,17 @@ export default class App extends React.Component {
   }
   
   
-	viewPage() {
+	viewPage = (item) => {
         //this.props.navigator.push({name: 'web_page', url: url});
-		console.log('viewPage')
+		console.log('viewPage : ' + item.title)
     }
 	
 	
-  renderNews(news) {
+  renderItem(item) {
         return (
-            <TouchableHighlight onPress={this.viewPage} underlayColor={"#E8E8E8"} style={styles.button}>
+            <TouchableHighlight onPress={this.viewPage.bind(this, item)} underlayColor={"#E8E8E8"} style={styles.button}>
             <View style={styles.news_item}>
-                <Text style={styles.news_item_text}>{news.title}</Text>
+                <Text style={styles.news_item_text}>{item.title}</Text>
             </View>
             </TouchableHighlight>
         );
