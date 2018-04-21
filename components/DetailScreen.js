@@ -17,12 +17,21 @@ export default class DetailScreen extends React.Component {
 	componentDidMount() {
 		
 	}
-  
+  onOpenLink = (item) => {
+        //this.props.navigator.push({name: 'web_page', url: url});
+		console.log('onOpenLink : ' + item.content)
+		
+    }
   render() {
 	const item = this.props.navigation.state.params.item;
     return (
 	  <View style={styles.container}>
 		  <Text style={styles.title}>{item.title}</Text>
+		  <TouchableHighlight onPress={this.onOpenLink.bind(this, item)} underlayColor={"#E8E8E8"} style={styles.button}>
+            <View>
+                <Text>OPEN LINK</Text>
+            </View>
+            </TouchableHighlight>
 		  <Text style={styles.body}>{item.description}</Text>
 	  </View>
     );
@@ -48,5 +57,9 @@ const styles = StyleSheet.create({
   description: {
 	  color:'#00ff00',
 	  margin:5
-  }
+  },
+  button: {
+    backgroundColor: '#DDDDDD',
+    padding: 10
+  },
 });
