@@ -5,7 +5,7 @@ import {
   StackNavigator,
 } from 'react-navigation';
 import DetailScreen from './DetailScreen';
-
+import WebViewOpenLinkScreen from './WebViewOpenLinkScreen';
 class MasterDetail extends React.Component {
   static navigationOptions = {
     title: 'MasterDetail'
@@ -121,5 +121,8 @@ export default StackNavigator({
   },
   Detail: {
     screen: DetailScreen,
+  },
+  WebViewOpenLink: {
+	  screen:WebViewOpenLinkScreen
   }
 });

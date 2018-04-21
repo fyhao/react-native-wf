@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ListView, ScrollView, View,TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, ListView, ScrollView, View,TouchableHighlight, Linking } from 'react-native';
 import Constants from '../lib/Constants';
 
 export default class DetailScreen extends React.Component {
@@ -21,9 +21,9 @@ export default class DetailScreen extends React.Component {
 		
 	}
   onOpenLink = (item) => {
-        //this.props.navigator.push({name: 'web_page', url: url});
-		console.log('onOpenLink : ' + item.content)
-		
+        console.log('onOpenLink : ' + item.content)
+		this.props.navigation.navigate('WebViewOpenLink', {item:item})
+		//Linking.openURL(item.content);
     }
   render() {
 	const item = this.props.navigation.state.params.item;
