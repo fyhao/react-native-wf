@@ -3,9 +3,12 @@ import { StyleSheet, Text, ListView, ScrollView, View,TouchableHighlight } from 
 import Constants from '../lib/Constants';
 
 export default class DetailScreen extends React.Component {
-  static navigationOptions = {
-    title: 'DetailScreen'
-  };
+  static navigationOptions = ({navigation}) => {
+	    var item = navigation.state.params.item;
+		return {
+			title : item.title
+		}
+  }
   constructor(props) {
 	  super(props);
 	 
@@ -60,6 +63,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#DDDDDD',
-    padding: 10
+    padding: 10,
+	paddingTop:10
   },
 });
