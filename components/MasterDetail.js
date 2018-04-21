@@ -1,17 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, ListView, ScrollView, View,TouchableHighlight } from 'react-native';
 import Constants from '../lib/Constants';
+import {
+  StackNavigator,
+} from 'react-navigation';
+import DetailScreen from './DetailScreen';
 
-export default class MasterDetail extends React.Component {
-  
+class MasterDetail extends React.Component {
+  static navigationOptions = {
+    title: 'MasterDetail'
+  };
   constructor(props) {
 	  super(props);
 	  this.renderItem = this.renderItem.bind(this);
   }
   componentWillMount() {
         this.setState({
-			
-          title: 'HN Reader',
           dataSource: new ListView.DataSource({
             rowHasChanged: (row1, row2) => row1 !== row2,
           }),
@@ -44,6 +48,10 @@ export default class MasterDetail extends React.Component {
   render() {
     return (
 	  <View style={styles.container}>
+		  {
+			  !this.state.loaded && 
+			  <Text>Loading...</Text>
+		  }
 		  <ScrollView ref="scrollView">
 		  {
 			  this.state.loaded && 
@@ -59,6 +67,7 @@ export default class MasterDetail extends React.Component {
 	viewPage = (item) => {
         //this.props.navigator.push({name: 'web_page', url: url});
 		console.log('viewPage : ' + item.title)
+		this.props.navigation.navigate('Detail', {item:item})
     }
 	
 	
@@ -103,5 +112,14 @@ const styles = StyleSheet.create({
   news_item_text: {
     color: '#575757',
     fontSize: 18
+  }
+});
+
+export default StackNavigator({
+  Home: {
+    screen: MasterDetail,
+  },
+  Detail: {
+    screen: DetailScreen,
   }
 });
