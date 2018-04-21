@@ -1,10 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, ListView, View } from 'react-native';
+import { StyleSheet, Text, ListView, ScrollView, View,TouchableHighlight } from 'react-native';
 import Constants from './lib/Constants';
 var API_URL = Constants.API_URL;
 export default class App extends React.Component {
   
-  componentDidMount() {
+  constructor(props) {
+	  super(props);
+	  this.renderNews = this.renderNews.bind(this);
+  }
+  componentWillMount() {
         this.setState({
 			
           title: 'HN Reader',
@@ -14,19 +18,66 @@ export default class App extends React.Component {
           news: {},
           loaded: false
         
-		})   
+		});
+		
+		
     }
+	
+	componentDidMount() {
+		fetch(Constants.API_URL, {
+		  method: 'GET',
+		  headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		  }
+		})
+		.then((response) => response.json())
+		.then((responseJson) => {
+			this.setState({
+				loaded : true,
+				dataSource : this.state.dataSource.cloneWithRows(responseJson.list)
+			});
+			console.log('after loaded')
+		});
+	}
   
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-		<Text>API URL: {API_URL}</Text>
-      </View>
+	  <View style={styles.container}>
+		  <View style={styles.container}>
+			<Text>Open up App.js to start working on your app!</Text>
+			<Text>Changes you make will automatically reload.</Text>
+			<Text>Shake your phone to open the developer menu.</Text>
+			<Text>API URL: {API_URL}</Text>
+		  </View>
+		  <ScrollView ref="scrollView">
+		  {
+			  this.state.loaded && 
+			  <ListView initialListSize={1} dataSource={this.state.dataSource} style={styles.news} renderRow={this.renderNews}></ListView>
+		  }
+			
+		  </ScrollView>
+	  </View>
     );
   }
+  
+  
+	viewPage() {
+        //this.props.navigator.push({name: 'web_page', url: url});
+		console.log('viewPage')
+    }
+	
+	
+  renderNews(news) {
+        return (
+            <TouchableHighlight onPress={this.viewPage} underlayColor={"#E8E8E8"} style={styles.button}>
+            <View style={styles.news_item}>
+                <Text style={styles.news_item_text}>{news.title}</Text>
+            </View>
+            </TouchableHighlight>
+        );
+    }
+	
 }
 
 const styles = StyleSheet.create({
@@ -36,4 +87,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  body: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10
+  },
+ 
+  news_item: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
+    marginBottom: 5
+  },
+  news_item_text: {
+    color: '#575757',
+    fontSize: 18
+  }
 });
