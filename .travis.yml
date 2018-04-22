@@ -8,13 +8,19 @@ matrix:
       dist: trusty
       sudo: required
       env: TEST_SUITES=UNIT_TEST
+    - os: osx
+      osx_image: xcode7.2
+      env: TEST_SUITES=INTEGRATION_TEST_IOS
 
       
 before_install:
 - chmod +x ./scripts/*.sh
 
+install:
+- if [[ $TEST_SUITES == 'UNIT_TEST' ]]; then ./scripts/install-unit-test.sh; fi
+- if [[ $TEST_SUITES == 'INTEGRATION_TEST_IOS' ]]; then ./scripts/install-integration-test-ios.sh; fi
+
 script:
-- ls -ltrhaZ ios
-- ls -ltrhaZ ios/build
-- ls -ltrhaZ /Users/travis/build/fyhao/react-native-wf/ios/
-- ls -ltrhaZ /Users/travis/build/fyhao/react-native-wf/ios/build
+- if [[ $TEST_SUITES == 'UNIT_TEST' ]]; then ./scripts/script-unit-test.sh; fi
+- if [[ $TEST_SUITES == 'INTEGRATION_TEST_IOS' ]]; then ./scripts/script-integration-test-ios.sh; fi
+
