@@ -28,7 +28,7 @@ export default class DetailScreen extends React.Component {
 	
 	onShare = (item) => {
         console.log('onShare : ' + item.content)
-		Share.share({message:'Check it out: ' + item.title, title:'Share','url':item.content})
+		Share.share({message:'Check it out: ' + item.title, subject:item.title, title:'Share','url':item.content})
     }
   render() {
 	const item = this.props.navigation.state.params.item;
