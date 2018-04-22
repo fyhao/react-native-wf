@@ -7,13 +7,18 @@ matrix:
     - os: linux
       dist: trusty
       sudo: required
+      env: TEST_SUITES=UNIT_TEST
     - os: osx
       osx_image: xcode7.2
+      env: TEST_SUITES=INTEGRATION_TEST_IOS
 
       
 
 install:
-- npm install
+- if [[ $TEST_SUITES == 'UNIT_TEST' ]]; then ./scripts/install-unit-test.sh; fi
+- if [[ $TEST_SUITES == 'INTEGRATION_TEST_IOS' ]]; then ./scripts/install-integration-test-ios.sh; fi
+
 script:
-- npm test
+- if [[ $TEST_SUITES == 'UNIT_TEST' ]]; then ./scripts/script-unit-test.sh; fi
+- if [[ $TEST_SUITES == 'INTEGRATION_TEST_IOS' ]]; then ./scripts/script-integration-test-ios.sh; fi
 
