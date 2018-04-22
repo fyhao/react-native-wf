@@ -1,3 +1,5 @@
 --recursive
 --timeout 120000
 --bail
+--compilers js:babel-core/register
+--require babel-polyfill
