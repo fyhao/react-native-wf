@@ -13,6 +13,8 @@ matrix:
       env: TEST_SUITES=INTEGRATION_TEST_IOS
 
       
+before_install:
+- chmod +x ./scripts/*.sh
 
 install:
 - if [[ $TEST_SUITES == 'UNIT_TEST' ]]; then ./scripts/install-unit-test.sh; fi
