@@ -5,3 +5,4 @@ brew tap wix/brew
 brew install applesimutils
 npm install -g detox-cli
 npm install detox --save-dev
+npm install mocha --save-dev
