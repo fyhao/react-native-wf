@@ -1,6 +1,6 @@
 language: node_js
 
-node_js: '6'
+
 
 matrix:
   include:
@@ -8,9 +8,11 @@ matrix:
       dist: trusty
       sudo: required
       env: TEST_SUITES=UNIT_TEST
+      node_js: '6'
     - os: osx
       osx_image: xcode7.2
       env: TEST_SUITES=INTEGRATION_TEST_IOS
+      node_js: '8'
 
       
 before_install:
