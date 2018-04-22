@@ -3,35 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts": "1.13.2",
-    "jest-expo": "26.0.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "jest": "^22.4.3",
+    "jest-react-native": "^18.0.0",
     "react-test-renderer": "16.3.0-alpha.1"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "jest"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "react-native"
   },
   "dependencies": {
-    "expo": "^26.0.0",
     "react": "16.3.0",
     "react-native": "~0.54.1",
     "react-navigation": "^1.5.11"
   },
   "detox": {
-	  "configurations": {
-		"ios.sim.debug": {
-		  "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/react-native-wf.app",
-		  "build": "xcodebuild -project ios/react-native-wf.xcodeproj -scheme react-native-wf -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
-		  "type": "ios.simulator",
-		  "name": "iPhone 7"
-		}
-	  }
-	}
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/react-native-wf.app",
+        "build": "xcodebuild -project ios/react-native-wf.xcodeproj -scheme react-native-wf -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
+      }
+    }
+  }
 }
