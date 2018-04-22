@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ListView, ScrollView, View,TouchableHighlight, Linking } from 'react-native';
+import { StyleSheet, Text, ListView, ScrollView, View,TouchableHighlight, Linking, Share } from 'react-native';
 import Constants from '../lib/Constants';
 
 export default class DetailScreen extends React.Component {
@@ -25,6 +25,11 @@ export default class DetailScreen extends React.Component {
 		this.props.navigation.navigate('WebViewOpenLink', {item:item})
 		//Linking.openURL(item.content);
     }
+	
+	onShare = (item) => {
+        console.log('onShare : ' + item.content)
+		Share.share({message:'Check it out: ' + item.title, subject:item.title, title:'Share','url':item.content})
+    }
   render() {
 	const item = this.props.navigation.state.params.item;
     return (
@@ -33,6 +38,11 @@ export default class DetailScreen extends React.Component {
 		  <TouchableHighlight onPress={this.onOpenLink.bind(this, item)} underlayColor={"#E8E8E8"} style={styles.button}>
             <View>
                 <Text>OPEN LINK</Text>
+            </View>
+            </TouchableHighlight>
+			<TouchableHighlight onPress={this.onShare.bind(this, item)} underlayColor={"#E8E8E8"} style={styles.button}>
+            <View>
+                <Text>SHARE</Text>
             </View>
             </TouchableHighlight>
 		  <Text style={styles.body}>{item.description}</Text>
@@ -64,6 +74,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#DDDDDD',
     padding: 10,
-	paddingTop:10
+	paddingTop:10,
+	margin:5
   },
 });
